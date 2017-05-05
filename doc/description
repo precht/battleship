@@ -1,0 +1,63 @@
+Project Description
+
+Project Goal
+The project goal is to implement a game imitating a sea battle, which resembles the classical Battleship game, but with several important modifications.
+
+Game Rules
+
+The game is played by 2 players.
+
+The game is played on 10-by-10 grids. Each player maintains two versions of the grid: the primary grid is used to keep track of the player's own ships, while the secondary grid is used to record the player's shots and possible hits at opponent's ships. Each grid square is identified by a pair of numbers, with the first number indicating the row of the grid and the second number indicating the column.
+
+Each player has 3 ships: one single-funnel ship, one two-funnel ship, and one three-funnel ship. Two-funnel and three-funnel ships can be hereafter collectively called multiple-funnel ships. A single-funnel ship occupies a single square in the grid, a two-funnel ship occupies two adjacent squares in the grid, and a three-funnel ship occupies three adjacent squares in the grid. Multiple-funnel ships must not bend, which means that the squares which they occupy must be arranged either vertically or horizontally.
+
+Before play begins, each player arranges their ships on their primary grid. Ships cannot overlap or touch one another, which means that they cannot occupy squares that are adjacent horizontally, vertically, or diagonally. Moreover, each player keeps the arrangement of their ships secret so that the locations of the player's ships are not known to the opponent.
+
+The game is played as a series of rounds. In each round, each player takes their turn unless none of the player's ships that have not been sunk yet can take a shot. In the beginning of the turn, the player selects one of their own ships that can take a shot and then announces a target square at which the ship fires. Only those squares that have not been a target yet could become a target. Subsequently, the opponent checks whether this square is occupied by any of their ships and announces whether the shot was a hit or a miss accordingly. The (attacking) player then appropriately marks the target square on their secondary grid, while the opponent marks the target square on their primary grid. When a ship was hit and, moreover, all other squares belonging to that ship had been hit previously, the ship is sunk and the opponent announces this fact. A ship that is sunk cannot take shots any more. Depending on which kind of ship was selected by the player in the beginning of the turn, the player may announce another target square at which the ship fires and the remaining of the above procedure repeats.
+
+Each ship is characterized by a certain range of squares at which it can fire as well as by the number of shots it can take in a single round. A single-funnel ship can fire at all squares that are within a rectangle whose corners are 2 squares away in the vertical and in the horizontal direction from the square at which the ship is located. Similarly, for a two-funnel ship the corresponding rectangle corners are 3 squares away from the ship's respective end squares, whereas for a three-funnel ship the rectangle corners are 4 squares away from the ship's respective end squares. Moreover, a single-funnel ship can take only a single shot during a single round, whereas multiple-funnel ships can take one shot optionally followed by one more shot. However, if a multiple-funnel ship takes 2 consecutive shots during a single round, it cannot take a shot during the subsequent round (i.e., it must then pause for 1 round).
+
+The game is played until one of the following conditions is met:
+all of one of the player's ships are sunk;
+there are no more new squares at which any of the ships belonging to one of the players could possibly fire;
+the game has been played for the specified number of rounds.
+In the case of (1) and (2), the player whose ships meet the respective condition looses the game. In the case of (3), the total number of squares belonging to ships that have not been sunk yet is counted for each player and the player with lower count looses the game.
+
+Game Specification
+
+The game can be played in either of two modes: in one mode, a human player plays against a computer player, whereas in the other mode two computer players play against each other. It the latter mode, it is only possible to view the course of the game.
+
+The computer player arranges their ships randomly, obeying Rule 4. The human player indicates the positions which their ships occupy via the user interface. In this case, positions that violate Rule 4 are not allowed.
+
+The computer player uses one of the following two strategies when selecting a ship that will take a shot (the player uses the same strategy throughout the game). Under the first strategy (called random), a random ship is selected out of those that can take a shot. Under the second strategy (called greedy), the ship with the most funnels is selected unless this ship is already sunk or needs to pause during the current round or there are no new squares at which this ship could fire. In such a case, ships with the lower number of funnels are considered according to the same rule. The human player selects a ship that will take a shot via the user interface. In this case ships that cannot take a shot must not be selected.
+
+The computer player selects a target square randomly within the ship's range. However, care must be taken not to select a square that has already been a target. If a multiple-funnel ship has been selected to take a shot, the computer player always takes the second shot unless it is not feasible (e.g., there are no new squares at which this ship could fire). The human player selects a target square via the user interface. In this case squares outside the ship's range or squares that have already been a target must not be selected. If a multiple-funnel ship has been selected to take a shot, the human player chooses via the user interface whether the second shot would be taken unless the second shot is not feasible.
+
+For launching the game, additional arguments need to be specified. The first argument is mandatory and is a number specifying for how many rounds the game can be played at a maximum. This number cannot be higher than 20. The second argument is also mandatory and is a string specifying which strategy for selecting a ship that will take a shot should be adopted by the computer player. It can be either random or greedy. The third argument is optional. If it is specified, it means that the game will be played in the mode with two computers playing against each other (otherwise the game will be played in the mode with a human playing against a computer). This argument is a string specifying which strategy for selecting a ship that will take a shot should be adopted by the second computer player.
+
+Evaluation criteria:
+D1) proper use of inheritance (pay attention to where it should be used, and where to use delegation)
+D2) abstract classes and interfaces (polymorphism, S.O.L.I.D.)
+D3) two-way relationships (association / aggregation)
+D4) one-to-many or many-to-many relationships (involving the use of dynamic structures)
+D5) separation of the user interface, data storage and logic (programming in terms of abstraction, reverse dependencies, S.O.L.I.D.)
+D6) correct use of access specifiers to access fields and methods
+D7) correct distribution of responsibilities between the classes (one class - one responsibility, S.O.L.I.D.)
+D8) notes on the diagram for easy understanding
+
+What it must contain, what to look for in the implementation of the project:
+I1) use of external library - check the license
+I2) use of STL containers as dynamic structures
+I3) dynamically allocated memory (proper management, smart pointers are welcome)
+I4) where necessary, implement destructors (virtual), assignment operators and copy constructor / move constructor
+I5) error handling via exceptions (in particular use of exceptions from standard library as a base class for your own exceptions)
+I6) uniform style, formatting, and comments in the code (suggested is to use AStyle or similar mechanism)
+I7) unit tests (for game logic)
+I8) writing and reading of the state of the application from file using streams (pay attention to exception situations)
+
+Optional features (extra points):
+I9) use of algorithms available in the standard library
+I10) use of facilities of C++11 standard or higher
+I11) place the application classes in their own namespaces
+I12) enforce the use of exceptions for operations on streams, ensure closing the stream
+
